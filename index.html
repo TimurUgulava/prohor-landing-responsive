@@ -87,15 +87,21 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 #s3 .grid{display:grid;grid-template-columns:1.05fr .85fr;gap:36px;align-items:center}
 #s3 .figwrap{position:relative;height:88vh;max-height:920px;order:2;display:flex;align-items:center;justify-content:center}
 /* живой Прохор в рамке-сторис */
-.vframe{position:relative;width:min(100%,430px);aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#000;
+/* рамка строго по пропорции видео (9:16), высота компактная */
+.vframe{position:relative;height:min(62vh,520px);width:auto;aspect-ratio:9/16;border-radius:26px;overflow:hidden;background:#000;
   border:1.5px solid rgba(254,153,1,.5);
-  box-shadow:0 26px 70px rgba(0,0,0,.6), 0 0 80px rgba(254,153,1,.16), inset 0 0 0 1px rgba(0,0,0,.45)}
+  box-shadow:0 24px 60px rgba(0,0,0,.6), 0 0 64px rgba(254,153,1,.15), inset 0 0 0 1px rgba(0,0,0,.45)}
 .vframe video{width:100%;height:100%;object-fit:cover;display:block}
-.vsound{position:absolute;right:15px;bottom:15px;width:48px;height:48px;border-radius:50%;
+.vplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;border:none;
+  background:rgba(254,153,1,.94);color:#0a0a0b;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;
+  box-shadow:0 10px 34px rgba(0,0,0,.5);transition:opacity .25s ease,transform .25s ease}
+.vplay svg{width:28px;height:28px;margin-left:3px}
+.vframe.playing .vplay{opacity:0;transform:translate(-50%,-50%) scale(.6);pointer-events:none}
+.vsound{position:absolute;right:13px;bottom:13px;width:44px;height:44px;border-radius:50%;
   border:1px solid rgba(255,255,255,.18);background:rgba(10,10,11,.55);
   backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:#fff;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:.2s;z-index:2}
-.vsound svg{width:22px;height:22px}
+  display:flex;align-items:center;justify-content:center;transition:.2s;z-index:4}
+.vsound svg{width:20px;height:20px}
 .vsound:hover{background:var(--orange);color:#0a0a0b;border-color:var(--orange)}
 #s3 h1{font-size:104px;margin:24px 0 0}
 #s3 .lead{margin-top:38px;font-size:25px;line-height:1.5;color:#cfcdc7;font-weight:500;max-width:680px}
@@ -290,9 +296,11 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 
   /* ---- s3 Прохор: видео-рамка ---- */
   #s3 .figwrap{height:auto;order:-1}
-  #s3 .vframe{width:auto;height:46svh;border-radius:24px}
-  #s3 .vsound{width:42px;height:42px;right:11px;bottom:11px}
-  #s3 .vsound svg{width:19px;height:19px}
+  #s3 .vframe{height:40svh;border-radius:22px}
+  #s3 .vplay{width:60px;height:60px}
+  #s3 .vplay svg{width:25px;height:25px}
+  #s3 .vsound{width:40px;height:40px;right:10px;bottom:10px}
+  #s3 .vsound svg{width:18px;height:18px}
   #s3 h1{font-size:58px;margin:8px 0 0}
   #s3 .lead{font-size:18px;margin-top:22px;max-width:none}
   #s3 .lead+.lead{margin-top:15px}
@@ -460,6 +468,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <div class="figwrap">
         <div class="vframe">
           <video id="proVid" src="assets/prohor-talk.mp4" muted loop playsinline preload="auto" poster="assets/prohor-poster.jpg"></video>
+          <button class="vplay" id="vPlay" type="button" aria-label="Воспроизвести"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
           <button class="vsound" id="vSound" type="button" title="Включить звук" aria-label="Включить звук"></button>
         </div>
       </div>
@@ -747,22 +756,32 @@ document.addEventListener('keydown',function(e){
   if(['ArrowUp','PageUp'].indexOf(e.key)>=0){e.preventDefault();if(navLock)return;navLock=true;go(cur()-1);setTimeout(function(){navLock=false},520)}
 });
 
-/* ---------- видео-Прохор s3 (рамка): автоплей без звука + тумблер звука ---------- */
+/* ---------- видео-Прохор s3 (рамка): старт по наведению/тапу + тумблер звука ---------- */
 (function(){
-  var v=document.getElementById('proVid'), btn=document.getElementById('vSound');
-  if(!v||!btn) return;
+  var v=document.getElementById('proVid'), sBtn=document.getElementById('vSound'),
+      pBtn=document.getElementById('vPlay'), frame=document.querySelector('#s3 .vframe'),
+      s3=document.getElementById('s3');
+  if(!v||!frame) return;
   var ICON_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>';
   var ICON_ON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>';
-  btn.innerHTML=ICON_OFF;
-  v.play().catch(function(){});
-  function setSound(on){ v.muted=!on; btn.innerHTML=on?ICON_ON:ICON_OFF; btn.title=on?'Выключить звук':'Включить звук'; if(on){v.play().catch(function(){});} }
-  btn.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); setSound(v.muted); });
-  /* играем только когда экран Прохора виден */
-  var s3=document.getElementById('s3');
+  if(sBtn) sBtn.innerHTML=ICON_OFF;
+  function playV(){ v.play().catch(function(){}); }
+  function pauseV(){ v.pause(); }
+  v.addEventListener('play',function(){ frame.classList.add('playing'); });
+  v.addEventListener('pause',function(){ frame.classList.remove('playing'); });
+  if(sBtn) sBtn.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation();
+    v.muted=!v.muted; sBtn.innerHTML=v.muted?ICON_OFF:ICON_ON; sBtn.title=v.muted?'Включить звук':'Выключить звук'; playV(); });
+  if(pBtn) pBtn.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); playV(); });
+  /* десктоп — наведение мышью; тач — тап по рамке */
+  if(window.matchMedia('(hover:hover)').matches){
+    frame.addEventListener('mouseenter',playV);
+    frame.addEventListener('mouseleave',pauseV);
+  } else {
+    frame.addEventListener('click',function(){ v.paused?playV():pauseV(); });
+  }
+  /* ушли с экрана — пауза */
   if('IntersectionObserver' in window && s3){
-    new IntersectionObserver(function(es){es.forEach(function(e){
-      if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); }
-    })},{threshold:.35}).observe(s3);
+    new IntersectionObserver(function(es){es.forEach(function(e){ if(!e.isIntersecting)pauseV(); })},{threshold:.35}).observe(s3);
   }
 })();
 </script>

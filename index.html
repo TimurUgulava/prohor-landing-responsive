@@ -85,11 +85,18 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 
 /* ============ S3 · PROHOR ============ */
 #s3 .grid{display:grid;grid-template-columns:1.05fr .85fr;gap:36px;align-items:center}
-#s3 .figwrap{position:relative;height:88vh;max-height:920px;order:2;cursor:pointer}
-#s3 .figwrap img{position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:100%;width:auto;object-fit:contain;transition:opacity .45s ease}
-#s3 .figwrap .smile{opacity:0}
-#s3 .figwrap:hover .base{opacity:0}
-#s3 .figwrap:hover .smile{opacity:1}
+#s3 .figwrap{position:relative;height:88vh;max-height:920px;order:2;display:flex;align-items:center;justify-content:center}
+/* живой Прохор в рамке-сторис */
+.vframe{position:relative;width:min(100%,430px);aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#000;
+  border:1.5px solid rgba(254,153,1,.5);
+  box-shadow:0 26px 70px rgba(0,0,0,.6), 0 0 80px rgba(254,153,1,.16), inset 0 0 0 1px rgba(0,0,0,.45)}
+.vframe video{width:100%;height:100%;object-fit:cover;display:block}
+.vsound{position:absolute;right:15px;bottom:15px;width:48px;height:48px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.18);background:rgba(10,10,11,.55);
+  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.2s;z-index:2}
+.vsound svg{width:22px;height:22px}
+.vsound:hover{background:var(--orange);color:#0a0a0b;border-color:var(--orange)}
 #s3 h1{font-size:104px;margin:24px 0 0}
 #s3 .lead{margin-top:38px;font-size:25px;line-height:1.5;color:#cfcdc7;font-weight:500;max-width:680px}
 #s3 .lead+.lead{margin-top:22px}
@@ -281,10 +288,11 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   #s2 li{font-size:18px;gap:13px}
   #s2 li .ck{width:23px;height:23px}
 
-  /* ---- s3 Прохор (на тач улыбки нет — показываем базовый портрет в потоке) ---- */
-  #s3 .figwrap{height:34svh;order:-1}
-  #s3 .figwrap .base{position:relative;bottom:auto;left:auto;transform:none;height:100%}
-  #s3 .figwrap .smile{display:none}
+  /* ---- s3 Прохор: видео-рамка ---- */
+  #s3 .figwrap{height:auto;order:-1}
+  #s3 .vframe{width:auto;height:46svh;border-radius:24px}
+  #s3 .vsound{width:42px;height:42px;right:11px;bottom:11px}
+  #s3 .vsound svg{width:19px;height:19px}
   #s3 h1{font-size:58px;margin:8px 0 0}
   #s3 .lead{font-size:18px;margin-top:22px;max-width:none}
   #s3 .lead+.lead{margin-top:15px}
@@ -450,8 +458,10 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
         <p class="lead">Изучает рынок и пишет рекламные стратегии под ключ: <span class="hl">от аудита до креатива.</span></p>
       </div>
       <div class="figwrap">
-        <img class="figure base" src="assets/prohor-hero-cut.png" alt="Прохор">
-        <img class="figure smile" src="assets/prohor-hero-smile-cut.png" alt="Прохор улыбается">
+        <div class="vframe">
+          <video id="proVid" src="assets/prohor-talk.mp4" muted loop playsinline preload="auto" poster="assets/prohor-poster.jpg"></video>
+          <button class="vsound" id="vSound" type="button" title="Включить звук" aria-label="Включить звук"></button>
+        </div>
       </div>
     </div>
   </div>
@@ -736,6 +746,25 @@ document.addEventListener('keydown',function(e){
   if(['ArrowDown','PageDown',' '].indexOf(e.key)>=0){e.preventDefault();if(navLock)return;navLock=true;go(cur()+1);setTimeout(function(){navLock=false},520)}
   if(['ArrowUp','PageUp'].indexOf(e.key)>=0){e.preventDefault();if(navLock)return;navLock=true;go(cur()-1);setTimeout(function(){navLock=false},520)}
 });
+
+/* ---------- видео-Прохор s3 (рамка): автоплей без звука + тумблер звука ---------- */
+(function(){
+  var v=document.getElementById('proVid'), btn=document.getElementById('vSound');
+  if(!v||!btn) return;
+  var ICON_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>';
+  var ICON_ON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>';
+  btn.innerHTML=ICON_OFF;
+  v.play().catch(function(){});
+  function setSound(on){ v.muted=!on; btn.innerHTML=on?ICON_ON:ICON_OFF; btn.title=on?'Выключить звук':'Включить звук'; if(on){v.play().catch(function(){});} }
+  btn.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); setSound(v.muted); });
+  /* играем только когда экран Прохора виден */
+  var s3=document.getElementById('s3');
+  if('IntersectionObserver' in window && s3){
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){ v.play().catch(function(){}); } else { v.pause(); }
+    })},{threshold:.35}).observe(s3);
+  }
+})();
 </script>
 </body>
 </html>

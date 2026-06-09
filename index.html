@@ -102,6 +102,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   display:flex;align-items:center;justify-content:center;transition:.2s;z-index:4}
 .vsound svg{width:20px;height:20px}
 .vsound:hover{background:var(--orange);color:#0a0a0b;border-color:var(--orange)}
+.mobonly{display:none}  /* отдельный видео-экран — только мобайл */
 #s3 h1{font-size:104px;margin:24px 0 0}
 #s3 .lead{margin-top:38px;font-size:25px;line-height:1.5;color:#cfcdc7;font-weight:500;max-width:680px}
 #s3 .lead+.lead{margin-top:22px}
@@ -264,6 +265,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   .inner{max-width:660px}
   .dots{right:15px;gap:11px}
   .doodle{display:none}            /* декор-каракули на узком экране лезут на текст — прячем */
+  .mobonly{display:flex}           /* отдельный видео-экран Прохора — показываем */
 
   /* логотипы / номер слайда */
   .logos{top:30px}
@@ -285,22 +287,28 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   #s2 .figwrap,#s3 .figwrap,#sd1 .figwrap,#s8 .figwrap{
     display:flex;align-items:center;justify-content:center;max-height:none}
 
-  /* ---- s2 спикер ---- */
-  #s2 .figwrap{height:30svh;order:-1}
-  #s2 .figwrap img{height:100%}
+  /* ---- s2 спикер: фото убираем, текст уходит наверх экрана ---- */
+  #s2 .figwrap{display:none}
   #s2 h1{font-size:42px;margin:6px 0 20px}
   #s2 ul{gap:13px}
   #s2 li{font-size:18px;gap:13px}
   #s2 li .ck{width:23px;height:23px}
 
-  /* ---- s3 Прохор: видео-рамка ---- */
-  #s3 .figwrap{height:auto;order:-1}
-  #s3 .vframe{position:relative;top:auto;bottom:auto;left:auto;transform:none;height:40svh;width:auto;border-radius:22px}
-  #s3 .vplay{width:60px;height:60px}
-  #s3 .vplay svg{width:25px;height:25px}
-  #s3 .vsound{width:40px;height:40px;right:10px;bottom:10px}
-  #s3 .vsound svg{width:18px;height:18px}
+  /* ---- s3 на мобайле: только текст (видео уехало на s3v) ---- */
+  #s3 .figwrap{display:none}
   #s3 h1{font-size:58px;margin:8px 0 0}
+
+  /* ---- s3v: отдельный мобильный экран — крупное видео ---- */
+  #s3v{align-items:center}
+  #s3v .inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+  #s3v .eyebrow{margin-bottom:4px}
+  #s3v .vstage{margin-top:20px;display:flex;justify-content:center;width:100%}
+  #s3v .vframe{position:relative;top:auto;bottom:auto;left:auto;transform:none;width:80vw;max-width:360px;height:auto;aspect-ratio:9/16;border-radius:26px}
+  #s3v .vplay{width:64px;height:64px}
+  #s3v .vplay svg{width:26px;height:26px}
+  #s3v .vsound{width:42px;height:42px;right:11px;bottom:11px}
+  #s3v .vsound svg{width:18px;height:18px}
+  #s3v .vhint{margin-top:18px;font-size:14px;color:var(--mut);font-weight:600}
   #s3 .lead{font-size:18px;margin-top:22px;max-width:none}
   #s3 .lead+.lead{margin-top:15px}
   #s3 .terms{margin-top:26px}
@@ -464,7 +472,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
         <p class="lead">Спорит и отстаивает своё мнение, если решение слабое. <span class="hl">Дружелюбен, но на шею себе сесть не даст.</span></p>
         <p class="lead">Изучает рынок и пишет рекламные стратегии под ключ: <span class="hl">от аудита до креатива.</span></p>
       </div>
-      <div class="figwrap">
+      <div class="figwrap" id="figSlot">
         <div class="vframe">
           <video id="proVid" src="assets/prohor-talk.mp4" muted loop playsinline preload="auto" poster="assets/prohor-poster.jpg"></video>
           <button class="vplay" id="vPlay" type="button" aria-label="Воспроизвести"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4l13 8-13 8z"/></svg></button>
@@ -474,6 +482,17 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
     </div>
   </div>
   <div class="slidemark"><span class="num">03</span><span>герой</span></div>
+</section>
+
+<!-- ============ 03b · ЖИВОЙ ПРОХОР (только мобайл) ============ -->
+<section class="screen mobonly" id="s3v">
+  <div class="glow" style="width:760px;height:760px;left:50%;top:42%;transform:translate(-50%,-50%)"></div>
+  <div class="inner">
+    <span class="eyebrow">Прохор вживую</span>
+    <div class="vstage" id="figSlotM"></div>
+    <div class="vhint">▶ тапни — Прохор оживёт и заговорит</div>
+  </div>
+  <div class="slidemark"><span>живой Прохор</span></div>
 </section>
 
 <!-- ===================== 04 · PIPELINE ===================== -->
@@ -739,7 +758,8 @@ window.addEventListener('resize',renderCar);
 renderCar();
 
 /* ---------- dots nav + keyboard ---------- */
-var screens=[].slice.call(document.querySelectorAll('.screen'));
+var allScreens=[].slice.call(document.querySelectorAll('.screen'));
+var screens=allScreens.filter(function(s){return getComputedStyle(s).display!=='none'});
 var dots=document.getElementById('dots');
 screens.forEach(function(s,i){var a=document.createElement('a');a.href='#'+s.id;dots.appendChild(a)});
 var dotEls=[].slice.call(dots.children);
@@ -758,8 +778,7 @@ document.addEventListener('keydown',function(e){
 /* ---------- видео-Прохор s3 (рамка): старт по наведению/тапу + тумблер звука ---------- */
 (function(){
   var v=document.getElementById('proVid'), sBtn=document.getElementById('vSound'),
-      pBtn=document.getElementById('vPlay'), frame=document.querySelector('#s3 .vframe'),
-      s3=document.getElementById('s3');
+      pBtn=document.getElementById('vPlay'), frame=document.querySelector('.vframe');
   if(!v||!frame) return;
   var ICON_OFF='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/></svg>';
   var ICON_ON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 010 7"/><path d="M19 5a9 9 0 010 14"/></svg>';
@@ -784,8 +803,16 @@ document.addEventListener('keydown',function(e){
     frame.addEventListener('click',function(){ v.paused?playV():pauseV(); });
   }
   /* ушли с экрана — пауза */
-  if('IntersectionObserver' in window && s3){
-    new IntersectionObserver(function(es){es.forEach(function(e){ if(!e.isIntersecting)pauseV(); })},{threshold:.35}).observe(s3);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){ if(!e.isIntersecting)pauseV(); })},{threshold:.3}).observe(frame);
+  }
+  /* рамка переезжает: десктоп — рядом с текстом (s3), мобайл — отдельный экран (s3v) */
+  var slotD=document.getElementById('figSlot'), slotM=document.getElementById('figSlotM');
+  if(slotD&&slotM){
+    var mqv=window.matchMedia('(max-width:960px)');
+    var place=function(){ (mqv.matches?slotM:slotD).appendChild(frame); };
+    place();
+    if(mqv.addEventListener) mqv.addEventListener('change',place); else mqv.addListener(place);
   }
 })();
 </script>

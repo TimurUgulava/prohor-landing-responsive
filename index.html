@@ -556,9 +556,9 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <div class="cva-text">
         <span class="eyebrow">Забудьте про нейро-чаты</span>
         <h1 class="big">Чат или <span class="o">агент</span>?</h1>
-        <p class="cva-line" id="cvaLine">Чат — это <b>супермозг</b>.<br>Гениальный, но <b>без рук</b>: только советует.</p>
+        <p class="cva-line" id="cvaLine">Чат — это <b>супермозг</b><br>Гениальный, но <b>без рук</b><br>Только советует</p>
         <button class="cva-btn" id="cvaBtn" type="button">Дать руки&nbsp;&nbsp;→</button>
-        <div class="cva-verdict" id="cvaVerdict">Чат — отвечает. Агент — <span class="o">работает</span>.</div>
+        <div class="cva-verdict" id="cvaVerdict">Чат — отвечает<br>Агент — <span class="o">работает</span></div>
       </div>
       <div class="cva-fig">
         <img class="brain chat" src="assets/brain-chat-cut.png" alt="Супермозг">
@@ -870,8 +870,8 @@ document.addEventListener('keydown',function(e){
 (function(){
   var btn=document.getElementById('cvaBtn'), sec=document.getElementById('s4b'), line=document.getElementById('cvaLine');
   if(!btn||!sec||!line) return;
-  var L_CHAT='Чат — это <b>супермозг</b>.<br>Гениальный, но <b>без рук</b>: только советует.';
-  var L_AGENT='Агент — тот же мозг, но <b>с руками</b>: файлы, сервисы, действия.';
+  var L_CHAT='Чат — это <b>супермозг</b><br>Гениальный, но <b>без рук</b><br>Только советует';
+  var L_AGENT='Агент — тот же мозг, но <b>с руками</b><br>Файлы, сервисы, действия';
   var on=false;
   btn.addEventListener('click',function(){
     on=!on;

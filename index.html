@@ -864,8 +864,7 @@ document.addEventListener('keydown',function(e){
 
 /* ---------- s4b: кнопка «дать руки» — мозг отращивает руки ---------- */
 (function(){
-  var fig=document.getElementById('cvaFig'), sec=document.getElementById('s4b'),
-      line=document.getElementById('cvaLine'), hint=document.getElementById('cvaHint');
+  var fig=document.getElementById('cvaFig'), sec=document.getElementById('s4b'), line=document.getElementById('cvaLine');
   if(!fig||!sec||!line) return;
   var L_CHAT='Чат — это <b>супермозг</b><br>Гениальный, но <b>без рук</b>';
   var L_AGENT='Агент — тот же мозг, но <b>с руками</b><br>Файлы, сервисы, действия';
@@ -875,7 +874,6 @@ document.addEventListener('keydown',function(e){
     sec.classList.toggle('revealed',on);
     line.style.opacity='0';
     setTimeout(function(){ line.innerHTML=on?L_AGENT:L_CHAT; line.style.opacity='1'; },180);
-    if(hint) hint.innerHTML=on?'▶ кликни ещё раз' : '▶ кликни на мозг';
   });
 })();
 </script>

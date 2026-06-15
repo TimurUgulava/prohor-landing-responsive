@@ -243,28 +243,28 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 .tg-btn:active{transform:scale(.97)}
 .tg-btn svg{width:24px;height:24px;flex:none}
 
-/* ============ S4b · ЧАТ vs АГЕНТ ============ */
-#s4b .head{margin-bottom:20px}
-#s4b h1{font-size:56px;margin-top:10px}
+/* ============ S4b · ЧАТ vs АГЕНТ (Супермозг с руками) ============ */
+#s4b .grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:40px;align-items:center}
+#s4b h1{font-size:64px;margin:14px 0 0}
 #s4b h1 .o{color:var(--orange)}
-#s4b .sub{margin-top:16px;font-size:20px;color:var(--mut);max-width:1040px;line-height:1.5}
-#s4b .sub b{color:#fff;font-weight:700}
-#s4b .cva{width:100%;border-collapse:separate;border-spacing:0;margin-top:6px}
-#s4b .cva th,#s4b .cva td{padding:13px 24px;text-align:left;vertical-align:middle;font-size:19px}
-#s4b .cva thead th{font-family:'Unbounded';font-weight:700;font-size:18px;padding-bottom:14px}
-#s4b .cva thead th .ic{margin-right:9px}
-#s4b .cva td.ax{font-family:'Unbounded';font-weight:700;font-size:15px;color:#fff;width:22%;text-transform:uppercase;letter-spacing:.02em}
-#s4b .cva .chat{color:var(--mut);width:38%}
-#s4b .cva thead th.chat{color:#cfcdc7}
-#s4b .cva tbody td.ax,#s4b .cva tbody td.chat{border-top:1px solid var(--line)}
-#s4b .cva tbody tr:last-child td.ax,#s4b .cva tbody tr:last-child td.chat{border-bottom:1px solid var(--line)}
-/* колонка агента — оранжевый акцент-блок */
-#s4b .cva .agent{background:rgba(254,153,1,.08);color:#fff;font-weight:600;width:40%}
-#s4b .cva thead th.agent{color:var(--orange);border-radius:16px 16px 0 0}
-#s4b .cva tbody tr:last-child td.agent{border-radius:0 0 16px 16px}
-#s4b .cva-verdict{margin-top:24px;font-family:'Unbounded';font-weight:700;font-size:25px;color:#fff;line-height:1.3}
-#s4b .cva-verdict .muted{color:var(--mut2)}
+#s4b .cva-line{margin-top:30px;font-size:26px;line-height:1.5;color:#cfcdc7;font-weight:500;max-width:560px;min-height:118px;transition:opacity .3s ease}
+#s4b .cva-line b{color:#fff;font-weight:700}
+#s4b .cva-line .o{color:var(--orange);font-weight:700}
+#s4b .cva-btn{margin-top:8px;display:inline-flex;align-items:center;font-family:'Unbounded';font-weight:700;font-size:19px;
+  letter-spacing:.01em;color:#0a0a0b;background:var(--orange);border:none;padding:17px 30px;border-radius:14px;cursor:pointer;
+  box-shadow:0 14px 38px rgba(254,153,1,.3);transition:transform .14s ease,filter .14s ease}
+#s4b .cva-btn:hover{filter:brightness(1.07)}
+#s4b .cva-btn:active{transform:scale(.97)}
+#s4b .cva-verdict{margin-top:32px;font-family:'Unbounded';font-weight:700;font-size:27px;color:#fff;
+  opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease}
 #s4b .cva-verdict .o{color:var(--orange)}
+#s4b.revealed .cva-verdict{opacity:1;transform:none}
+#s4b .cva-fig{position:relative;height:64vh;max-height:660px;display:flex;align-items:center;justify-content:center}
+#s4b .brain{position:absolute;max-height:100%;max-width:100%;width:auto;object-fit:contain;
+  filter:drop-shadow(0 22px 48px rgba(0,0,0,.5));transition:opacity .55s ease,transform .55s ease}
+#s4b .brain.agent{opacity:0;transform:scale(.95)}
+#s4b.revealed .brain.chat{opacity:0;transform:scale(.95)}
+#s4b.revealed .brain.agent{opacity:1;transform:none}
 
 /* ===================================================================== */
 /* ===== АДАПТИВ (десктопный CSS выше не трогаем; всё узкое — здесь) ==== */
@@ -348,20 +348,13 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   #s4 .cnav{margin-top:16px;gap:20px}
   #s4 .cnav button{width:46px;height:46px;font-size:18px}
 
-  /* ---- s4b чат vs агент: таблица → стопка карточек по осям ---- */
-  #s4b h1{font-size:40px}
-  #s4b .head{margin-bottom:16px}
-  #s4b .sub{font-size:17px;margin-top:12px}
-  #s4b .cva,#s4b .cva tbody{display:block;width:auto}
-  #s4b .cva thead{display:none}
-  #s4b .cva tr{display:block;border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:11px}
-  #s4b .cva td.ax,#s4b .cva td.chat,#s4b .cva td.agent{display:block;width:auto;padding:3px 0;font-size:16px;border:none;background:none;border-radius:0}
-  #s4b .cva td.ax{font-family:'Unbounded';font-weight:700;font-size:12px;color:var(--orange);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
-  #s4b .cva td.chat{color:var(--mut)}
-  #s4b .cva td.chat::before{content:"💬  "}
-  #s4b .cva td.agent{color:#fff;font-weight:600}
-  #s4b .cva td.agent::before{content:"⚡  "}
-  #s4b .cva-verdict{font-size:20px;margin-top:18px}
+  /* ---- s4b Супермозг с руками ---- */
+  #s4b .grid{grid-template-columns:1fr;gap:16px}
+  #s4b h1{font-size:42px;margin:4px 0 0}
+  #s4b .cva-fig{height:34svh;max-height:none;order:-1}
+  #s4b .cva-line{font-size:19px;margin-top:18px;max-width:none;min-height:92px}
+  #s4b .cva-btn{font-size:17px;padding:15px 26px}
+  #s4b .cva-verdict{font-size:22px;margin-top:20px}
 
   /* ---- s5 таблица: показываем только активную колонку (lbl + выбранная) ---- */
   #s5 h1{font-size:42px}
@@ -559,23 +552,19 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 <section class="screen" id="s4b">
   <div class="glow" style="width:1000px;height:1000px;right:-6%;top:50%;transform:translateY(-50%)"></div>
   <div class="inner">
-    <div class="head">
-      <span class="eyebrow">Забудьте про нейро-чаты</span>
-      <h1 class="big">Чат или <span class="o">агент</span>?</h1>
-      <p class="sub">Все знают ИИ как чат в браузере. Этакий «Супермозг». Но Прохор рождается не в чате — а в <b>агенте</b>, где у нейросети появляются <b>руки</b>.</p>
+    <div class="grid">
+      <div class="cva-text">
+        <span class="eyebrow">Забудьте про нейро-чаты</span>
+        <h1 class="big">Чат или <span class="o">агент</span>?</h1>
+        <p class="cva-line" id="cvaLine">Чат — это <b>супермозг</b>. Гениальный, но <b>без рук</b>: только советует.</p>
+        <button class="cva-btn" id="cvaBtn" type="button">Дать руки&nbsp;&nbsp;→</button>
+        <div class="cva-verdict" id="cvaVerdict">Прохор живёт в <span class="o">агенте</span>.</div>
+      </div>
+      <div class="cva-fig">
+        <img class="brain chat" src="assets/brain-chat-cut.png" alt="Супермозг">
+        <img class="brain agent" src="assets/brain-agent-cut.png" alt="Супермозг с руками">
+      </div>
     </div>
-    <table class="cva">
-      <thead><tr><th class="ax"></th><th class="chat"><span class="ic">💬</span>В чате</th><th class="agent"><span class="ic">⚡</span>В агенте</th></tr></thead>
-      <tbody>
-        <tr><td class="ax">Что делает</td><td class="chat">Отвечает текстом</td><td class="agent">Сам делает работу</td></tr>
-        <tr><td class="ax">Руки</td><td class="chat">Только слова — копируй и вставляй</td><td class="agent">Читает файлы, пишет, запускает, проверяет</td></tr>
-        <tr><td class="ax">Связи</td><td class="chat">Заперта в окне чата</td><td class="agent">Подключена к сервисам и инструментам</td></tr>
-        <tr><td class="ax">Память</td><td class="chat">Закрыл вкладку — всё забыл</td><td class="agent">Копит знания в файлах</td></tr>
-        <tr><td class="ax">Масштаб</td><td class="chat">Один диалог</td><td class="agent">Зовёт субагентов, работает параллельно</td></tr>
-        <tr><td class="ax">Итог</td><td class="chat">Умный собеседник</td><td class="agent">Полноценный сотрудник</td></tr>
-      </tbody>
-    </table>
-    <div class="cva-verdict">В чате ИИ <span class="muted">отвечает на вопросы</span>. В агенте — <span class="o">работает</span>.</div>
   </div>
   <div class="slidemark"><span class="num">05</span><span>чат или агент</span></div>
 </section>
@@ -875,6 +864,22 @@ document.addEventListener('keydown',function(e){
     place();
     if(mqv.addEventListener) mqv.addEventListener('change',place); else mqv.addListener(place);
   }
+})();
+
+/* ---------- s4b: кнопка «дать руки» — мозг отращивает руки ---------- */
+(function(){
+  var btn=document.getElementById('cvaBtn'), sec=document.getElementById('s4b'), line=document.getElementById('cvaLine');
+  if(!btn||!sec||!line) return;
+  var L_CHAT='Чат — это <b>супермозг</b>. Гениальный, но <b>без рук</b>: только советует.';
+  var L_AGENT='Тот же мозг — но <b>с руками</b>: файлы, сервисы, действия. Не советует — <span class="o">делает</span>.';
+  var on=false;
+  btn.addEventListener('click',function(){
+    on=!on;
+    sec.classList.toggle('revealed',on);
+    line.style.opacity='0';
+    setTimeout(function(){ line.innerHTML=on?L_AGENT:L_CHAT; line.style.opacity='1'; },180);
+    btn.innerHTML=on?'Забрать руки&nbsp;&nbsp;←':'Дать руки&nbsp;&nbsp;→';
+  });
 })();
 </script>
 </body>

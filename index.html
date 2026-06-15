@@ -243,6 +243,29 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 .tg-btn:active{transform:scale(.97)}
 .tg-btn svg{width:24px;height:24px;flex:none}
 
+/* ============ S4b · ЧАТ vs АГЕНТ ============ */
+#s4b .head{margin-bottom:20px}
+#s4b h1{font-size:56px;margin-top:10px}
+#s4b h1 .o{color:var(--orange)}
+#s4b .sub{margin-top:16px;font-size:20px;color:var(--mut);max-width:1040px;line-height:1.5}
+#s4b .sub b{color:#fff;font-weight:700}
+#s4b .cva{width:100%;border-collapse:separate;border-spacing:0;margin-top:6px}
+#s4b .cva th,#s4b .cva td{padding:13px 24px;text-align:left;vertical-align:middle;font-size:19px}
+#s4b .cva thead th{font-family:'Unbounded';font-weight:700;font-size:18px;padding-bottom:14px}
+#s4b .cva thead th .ic{margin-right:9px}
+#s4b .cva td.ax{font-family:'Unbounded';font-weight:700;font-size:15px;color:#fff;width:22%;text-transform:uppercase;letter-spacing:.02em}
+#s4b .cva .chat{color:var(--mut);width:38%}
+#s4b .cva thead th.chat{color:#cfcdc7}
+#s4b .cva tbody td.ax,#s4b .cva tbody td.chat{border-top:1px solid var(--line)}
+#s4b .cva tbody tr:last-child td.ax,#s4b .cva tbody tr:last-child td.chat{border-bottom:1px solid var(--line)}
+/* колонка агента — оранжевый акцент-блок */
+#s4b .cva .agent{background:rgba(254,153,1,.08);color:#fff;font-weight:600;width:40%}
+#s4b .cva thead th.agent{color:var(--orange);border-radius:16px 16px 0 0}
+#s4b .cva tbody tr:last-child td.agent{border-radius:0 0 16px 16px}
+#s4b .cva-verdict{margin-top:24px;font-family:'Unbounded';font-weight:700;font-size:25px;color:#fff;line-height:1.3}
+#s4b .cva-verdict .muted{color:var(--mut2)}
+#s4b .cva-verdict .o{color:var(--orange)}
+
 /* ===================================================================== */
 /* ===== АДАПТИВ (десктопный CSS выше не трогаем; всё узкое — здесь) ==== */
 /* ===================================================================== */
@@ -324,6 +347,21 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   #s4 .cstep .out{font-size:16px}
   #s4 .cnav{margin-top:16px;gap:20px}
   #s4 .cnav button{width:46px;height:46px;font-size:18px}
+
+  /* ---- s4b чат vs агент: таблица → стопка карточек по осям ---- */
+  #s4b h1{font-size:40px}
+  #s4b .head{margin-bottom:16px}
+  #s4b .sub{font-size:17px;margin-top:12px}
+  #s4b .cva,#s4b .cva tbody{display:block;width:auto}
+  #s4b .cva thead{display:none}
+  #s4b .cva tr{display:block;border:1px solid var(--line);border-radius:14px;padding:13px 16px;margin-bottom:11px}
+  #s4b .cva td.ax,#s4b .cva td.chat,#s4b .cva td.agent{display:block;width:auto;padding:3px 0;font-size:16px;border:none;background:none;border-radius:0}
+  #s4b .cva td.ax{font-family:'Unbounded';font-weight:700;font-size:12px;color:var(--orange);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+  #s4b .cva td.chat{color:var(--mut)}
+  #s4b .cva td.chat::before{content:"💬  "}
+  #s4b .cva td.agent{color:#fff;font-weight:600}
+  #s4b .cva td.agent::before{content:"⚡  "}
+  #s4b .cva-verdict{font-size:20px;margin-top:18px}
 
   /* ---- s5 таблица: показываем только активную колонку (lbl + выбранная) ---- */
   #s5 h1{font-size:42px}
@@ -517,7 +555,32 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   <div class="slidemark"><span class="num">04</span><span>пайплайн</span></div>
 </section>
 
-<!-- ===================== 05 · PROMPT vs SKILL ===================== -->
+<!-- ===================== 05 · ЧАТ vs АГЕНТ ===================== -->
+<section class="screen" id="s4b">
+  <div class="glow" style="width:1000px;height:1000px;right:-6%;top:50%;transform:translateY(-50%)"></div>
+  <div class="inner">
+    <div class="head">
+      <span class="eyebrow">Забудьте про нейро-чаты</span>
+      <h1 class="big">Чат или <span class="o">агент</span>?</h1>
+      <p class="sub">Все знают ИИ как чат в браузере. Этакий «Супермозг». Но Прохор рождается не в чате — а в <b>агенте</b>, где у нейросети появляются <b>руки</b>.</p>
+    </div>
+    <table class="cva">
+      <thead><tr><th class="ax"></th><th class="chat"><span class="ic">💬</span>В чате</th><th class="agent"><span class="ic">⚡</span>В агенте</th></tr></thead>
+      <tbody>
+        <tr><td class="ax">Что делает</td><td class="chat">Отвечает текстом</td><td class="agent">Сам делает работу</td></tr>
+        <tr><td class="ax">Руки</td><td class="chat">Только слова — копируй и вставляй</td><td class="agent">Читает файлы, пишет, запускает, проверяет</td></tr>
+        <tr><td class="ax">Связи</td><td class="chat">Заперта в окне чата</td><td class="agent">Подключена к сервисам и инструментам</td></tr>
+        <tr><td class="ax">Память</td><td class="chat">Закрыл вкладку — всё забыл</td><td class="agent">Копит знания в файлах</td></tr>
+        <tr><td class="ax">Масштаб</td><td class="chat">Один диалог</td><td class="agent">Зовёт субагентов, работает параллельно</td></tr>
+        <tr><td class="ax">Итог</td><td class="chat">Умный собеседник</td><td class="agent">Полноценный сотрудник</td></tr>
+      </tbody>
+    </table>
+    <div class="cva-verdict">В чате ИИ <span class="muted">отвечает на вопросы</span>. В агенте — <span class="o">работает</span>.</div>
+  </div>
+  <div class="slidemark"><span class="num">05</span><span>чат или агент</span></div>
+</section>
+
+<!-- ===================== 06 · PROMPT vs SKILL ===================== -->
 <section class="screen" id="s5" data-state="skill">
   <div class="glow" style="width:1000px;height:1000px;right:-6%;bottom:-20%"></div>
   <div class="inner">
@@ -537,7 +600,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <tr><td class="lbl">Автоматизация</td><td class="cp"><span class="ic">—</span>Копировать / вставить</td><td class="cs"><span class="ic">✓</span>Полноценный ассистент с субагентами</td></tr>
     </table>
   </div>
-  <div class="slidemark"><span class="num">05</span><span>скилл vs промпт</span></div>
+  <div class="slidemark"><span class="num">06</span><span>скилл vs промпт</span></div>
 </section>
 
 <!-- ===================== 06 · UNDER THE HOOD ===================== -->
@@ -563,7 +626,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       </div>
     </div>
   </div>
-  <div class="slidemark"><span class="num">06</span><span>под капотом</span></div>
+  <div class="slidemark"><span class="num">07</span><span>под капотом</span></div>
 </section>
 
 <!-- ===================== 07 · 3 ПУТИ (клик-прорастание) ===================== -->
@@ -581,7 +644,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <div class="way" onclick="this.classList.toggle('open')"><div class="n">3</div><h3>Исследовательский</h3><div class="tag">сначала research</div><ul><li>Нейросеть собирает знания</li><li>На этой базе строишь скилл</li><li>Дорабатываешь до состояния</li></ul></div>
     </div>
   </div>
-  <div class="slidemark"><span class="num">07</span><span>как создавать</span></div>
+  <div class="slidemark"><span class="num">08</span><span>как создавать</span></div>
 </section>
 
 <!-- ===================== 08 · ДАВИД (кто) ===================== -->
@@ -598,7 +661,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <div class="figwrap"><img class="figure" src="assets/david-hero-cut.png" alt="Давид"></div>
     </div>
   </div>
-  <div class="slidemark"><span class="num">08</span><span>армия ассистентов</span></div>
+  <div class="slidemark"><span class="num">09</span><span>армия ассистентов</span></div>
 </section>
 
 <!-- ===================== 09 · ДАВИД (как создать) ===================== -->
@@ -616,7 +679,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
     </div>
     <div class="arch">Соберём через <span class="hl">Skill Architect</span> — мой скилл-конструктор ассистентов</div>
   </div>
-  <div class="slidemark"><span class="num">09</span><span>как создать</span></div>
+  <div class="slidemark"><span class="num">10</span><span>как создать</span></div>
 </section>
 
 <!-- ===================== 10 · CTA ===================== -->
@@ -639,7 +702,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       </div>
     </div>
   </div>
-  <div class="slidemark"><span class="num">10</span><span>финал</span></div>
+  <div class="slidemark"><span class="num">11</span><span>финал</span></div>
 </section>
 
 <script>

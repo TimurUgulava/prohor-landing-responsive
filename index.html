@@ -103,8 +103,13 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 .vsound svg{width:20px;height:20px}
 .vsound:hover{background:var(--orange);color:#0a0a0b;border-color:var(--orange)}
 .mobonly{display:none}  /* отдельный видео-экран — только мобайл */
-/* Lottie-слой поверх экрана (салют и пр.) */
+/* Lottie-слои */
 .fx-confetti{position:absolute;inset:0;z-index:5;pointer-events:none}
+.fx-doodles{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.fx-doodles svg{width:100%;height:100%;display:block}
+#s4 .step-icon{position:absolute;top:30px;right:32px;width:60px;height:60px;pointer-events:none;opacity:.92;z-index:2}
+#s4b .fx-brain-spark{position:absolute;top:48%;left:50%;width:380px;height:380px;transform:translate(-50%,-50%);z-index:6;pointer-events:none}
+#s2 .lottie-check{display:inline-block;width:30px;height:30px;flex:none;pointer-events:none;line-height:0}
 #s3 h1{font-size:104px;margin:24px 0 0}
 #s3 .lead{margin-top:38px;font-size:25px;line-height:1.5;color:#cfcdc7;font-weight:500;max-width:680px}
 #s3 .lead+.lead{margin-top:22px}
@@ -287,7 +292,11 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
   .inner{max-width:660px}
   .dots{right:15px;gap:11px}
   .doodle{display:none}            /* декор-каракули на узком экране лезут на текст — прячем */
+  .fx-doodles{display:none}        /* меловые дудлы — только десктоп */
   .mobonly{display:flex}           /* отдельный видео-экран Прохора — показываем */
+  #s4 .step-icon{width:46px;top:22px;right:22px}
+  #s4b .fx-brain-spark{width:280px;height:280px}
+  #s2 .lottie-check{width:26px;height:26px}
 
   /* логотипы / номер слайда */
   .logos{top:30px}
@@ -448,9 +457,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 <!-- ===================== 01 · TITLE ===================== -->
 <section class="screen" id="s1">
   <div class="glow" style="width:1300px;height:1300px;left:50%;top:46%;transform:translate(-50%,-50%)"></div>
-  <svg class="doodle" style="top:140px;left:130px;width:70px;height:70px" viewBox="0 0 50 50"><path d="M25 4l5 14 14 1-11 9 4 14-12-8-12 8 4-14L10 19l14-1z"/></svg>
-  <svg class="doodle" style="bottom:120px;right:170px;width:90px;height:50px" viewBox="0 0 90 50"><path d="M6 40 C30 8 60 8 84 30 M84 30 l-14 2 M84 30 l-6-12"/></svg>
-  <svg class="doodle" style="top:200px;right:230px;width:34px;height:34px" viewBox="0 0 30 30"><path d="M15 2v26M2 15h26"/></svg>
+  <div class="fx-doodles" data-lottie-key="doodles" data-lottie-loop="1" aria-hidden="true"></div>
 
   <div class="logos">
     <img class="logo-dv" src="assets/logo-dvizhenie.svg" alt="Форум Движение">
@@ -477,12 +484,12 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
         <span class="eyebrow">Обо мне</span>
         <h1 class="big">Тимур Угулава</h1>
         <ul>
-          <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span>Руковожу <a class="hl" href="https://www.media-sfera.com/" target="_blank" rel="noopener">Медиасферой</a></span></li>
-          <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span>Внедряю <b class="hl">нейроночки</b> в процессы</span></li>
-          <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span>Веду <a class="hl" href="https://t.me/+z7t-uQJfP-U4MDYy" target="_blank" rel="noopener">«Тимур Угулава»</a> в тележке</span></li>
-          <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span>Консультирую и обучаю <b class="hl">про ИИ</b></span></li>
-          <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span>Блогерствую <a class="hl" href="https://dzen.ru/smart_travels" target="_blank" rel="noopener">про тревел</a> восьмой год</span></li>
-          <li><svg class="ck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg><span>Беру интервью у <a class="hl" href="https://www.youtube.com/@bezilluzii" target="_blank" rel="noopener">интересных людей</a></span></li>
+          <li><span class="lottie-check" data-lottie-key="check" aria-hidden="true"></span><span>Руковожу <a class="hl" href="https://www.media-sfera.com/" target="_blank" rel="noopener">Медиасферой</a></span></li>
+          <li><span class="lottie-check" data-lottie-key="check" aria-hidden="true"></span><span>Внедряю <b class="hl">нейроночки</b> в процессы</span></li>
+          <li><span class="lottie-check" data-lottie-key="check" aria-hidden="true"></span><span>Веду <a class="hl" href="https://t.me/+z7t-uQJfP-U4MDYy" target="_blank" rel="noopener">«Тимур Угулава»</a> в тележке</span></li>
+          <li><span class="lottie-check" data-lottie-key="check" aria-hidden="true"></span><span>Консультирую и обучаю <b class="hl">про ИИ</b></span></li>
+          <li><span class="lottie-check" data-lottie-key="check" aria-hidden="true"></span><span>Блогерствую <a class="hl" href="https://dzen.ru/smart_travels" target="_blank" rel="noopener">про тревел</a> восьмой год</span></li>
+          <li><span class="lottie-check" data-lottie-key="check" aria-hidden="true"></span><span>Беру интервью у <a class="hl" href="https://www.youtube.com/@bezilluzii" target="_blank" rel="noopener">интересных людей</a></span></li>
         </ul>
       </div>
     </div>
@@ -532,11 +539,11 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <h1 class="big">Кампания под ключ<br><span class="o">5 этапов</span></h1>
     </div>
     <div class="carousel" id="carousel">
-      <div class="cstep"><div class="n">1</div><h3>Анализ объекта</h3><p>Паспорт объекта и реальные конкуренты</p><div class="out">→ кто продаётся рядом прямо сейчас</div></div>
-      <div class="cstep"><div class="n">2</div><h3>Аудитория</h3><p>Сегменты ЦА, триггеры, барьеры</p><div class="out">→ темп продаж и приоритет сегментов</div></div>
-      <div class="cstep"><div class="n">3</div><h3>Концепция</h3><p>Уникальный tone of voice и отстройка от конкурентов</p><div class="out">→ стержень и ключевые сообщения</div></div>
-      <div class="cstep"><div class="n">4</div><h3>Тексты</h3><p>Объявления + проверка модерации и 214-ФЗ</p><div class="out">→ готово к запуску, юрчек пройден</div></div>
-      <div class="cstep"><div class="n">5</div><h3>Визуалы</h3><p>Генерация под форматы площадок</p><div class="out">→ баннеры 1:1, 4:5, 9:16, 16:9</div></div>
+      <div class="cstep"><div class="n">1</div><div class="step-icon" data-lottie-key="icon-analiz" data-lottie-loop="1" aria-hidden="true"></div><h3>Анализ объекта</h3><p>Паспорт объекта и реальные конкуренты</p><div class="out">→ кто продаётся рядом прямо сейчас</div></div>
+      <div class="cstep"><div class="n">2</div><div class="step-icon" data-lottie-key="icon-audience" data-lottie-loop="1" aria-hidden="true"></div><h3>Аудитория</h3><p>Сегменты ЦА, триггеры, барьеры</p><div class="out">→ темп продаж и приоритет сегментов</div></div>
+      <div class="cstep"><div class="n">3</div><div class="step-icon" data-lottie-key="icon-concept" data-lottie-loop="1" aria-hidden="true"></div><h3>Концепция</h3><p>Уникальный tone of voice и отстройка от конкурентов</p><div class="out">→ стержень и ключевые сообщения</div></div>
+      <div class="cstep"><div class="n">4</div><div class="step-icon" data-lottie-key="icon-text" data-lottie-loop="1" aria-hidden="true"></div><h3>Тексты</h3><p>Объявления + проверка модерации и 214-ФЗ</p><div class="out">→ готово к запуску, юрчек пройден</div></div>
+      <div class="cstep"><div class="n">5</div><div class="step-icon" data-lottie-key="icon-visual" data-lottie-loop="1" aria-hidden="true"></div><h3>Визуалы</h3><p>Генерация под форматы площадок</p><div class="out">→ баннеры 1:1, 4:5, 9:16, 16:9</div></div>
     </div>
     <div class="cnav">
       <button onclick="cmove(-1)" aria-label="предыдущий">◄</button>
@@ -561,6 +568,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <div class="cva-fig" id="cvaFig">
         <img class="brain chat" src="assets/brain-chat-cut.png" alt="Супермозг">
         <img class="brain agent" src="assets/brain-agent-cut.png" alt="Супермозг с руками">
+        <div class="fx-brain-spark" data-lottie-key="brain-spark" data-lottie-manual="1" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -877,6 +885,7 @@ document.addEventListener('keydown',function(e){
     sec.classList.toggle('revealed',on);
     line.style.opacity='0';
     setTimeout(function(){ line.innerHTML=on?L_AGENT:L_CHAT; line.style.opacity='1'; },180);
+    if(on && window.__playSpark) window.__playSpark();
   });
 })();
 </script>
@@ -884,6 +893,10 @@ document.addEventListener('keydown',function(e){
 <!-- ===================== LOTTIE (меловые приколы) ===================== -->
 <script src="assets/lottie/lottie.min.js"></script>
 <script src="assets/lottie/fx-confetti.js"></script>
+<script src="assets/lottie/fx-doodles.js"></script>
+<script src="assets/lottie/fx-step-icons.js"></script>
+<script src="assets/lottie/fx-brain-spark.js"></script>
+<script src="assets/lottie/fx-check.js"></script>
 <script>
 (function(){
   var L=window.lottie, D=window.lottieData||{};
@@ -899,14 +912,34 @@ document.addEventListener('keydown',function(e){
     });
     if(loop) el._anim.play();
   });
-  /* одноразовые — проигрываются при каждом появлении своего экрана */
+  /* одноразовые (не loop, не manual) — играют при появлении экрана; галочки — по очереди (stagger) */
+  var checks=[].slice.call(document.querySelectorAll('.lottie-check'));
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){
-      var el=e.target;
-      if(e.isIntersecting && el._anim && el.dataset.lottieLoop!=='1') el._anim.goToAndPlay(0,true);
-    })},{threshold:.35});
-    nodes.forEach(function(el){ if(el._anim && el.dataset.lottieLoop!=='1') io.observe(el); });
+      var el=e.target; if(!(e.isIntersecting && el._anim)) return;
+      var ci=checks.indexOf(el);
+      var d= ci>=0 ? ci*110 : parseInt(el.dataset.lottieDelay||'0',10);
+      if(d>0) setTimeout(function(){el._anim.goToAndPlay(0,true)},d); else el._anim.goToAndPlay(0,true);
+    })},{threshold:.3});
+    nodes.forEach(function(el){ if(el._anim && el.dataset.lottieLoop!=='1' && el.dataset.lottieManual!=='1') io.observe(el); });
   }
+  /* вспышка вокруг мозга — вызывается вручную из reveal-клика (s4b) */
+  window.__playSpark=function(){ var s=document.querySelector('.fx-brain-spark'); if(s&&s._anim) s._anim.goToAndPlay(0,true); };
+})();
+/* count-up счётчиков на экране «Под капотом» (s6), без Lottie */
+(function(){
+  var s6=document.getElementById('s6'); if(!s6||!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting) return;
+    [].forEach.call(e.target.querySelectorAll('.counter .c'),function(c){
+      var tn=c.firstChild; if(!tn||tn.nodeType!==3) return;
+      var target=parseInt(tn.textContent,10); if(isNaN(target)) return; var t0=null,dur=950;
+      function step(ts){ if(!t0)t0=ts; var p=Math.min(1,(ts-t0)/dur); tn.textContent=Math.round(p*target); if(p<1)requestAnimationFrame(step); }
+      requestAnimationFrame(step);
+    });
+    io.unobserve(e.target);
+  })},{threshold:.4});
+  io.observe(s6);
 })();
 </script>
 </body>

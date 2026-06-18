@@ -457,7 +457,8 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 <!-- ===================== 01 · TITLE ===================== -->
 <section class="screen" id="s1">
   <div class="glow" style="width:1300px;height:1300px;left:50%;top:46%;transform:translate(-50%,-50%)"></div>
-  <div class="fx-doodles" data-lottie-key="doodles" data-lottie-loop="1" aria-hidden="true"></div>
+  <div class="fx-doodles" data-lottie-key="doodles" data-lottie-once="1" aria-hidden="true"></div>
+  <div class="fx-doodles fx-sparks" data-lottie-key="sparks" data-lottie-loop="1" aria-hidden="true"></div>
 
   <div class="logos">
     <img class="logo-dv" src="assets/logo-dvizhenie.svg" alt="Форум Движение">
@@ -894,6 +895,7 @@ document.addEventListener('keydown',function(e){
 <script src="assets/lottie/lottie.min.js"></script>
 <script src="assets/lottie/fx-confetti.js"></script>
 <script src="assets/lottie/fx-doodles.js"></script>
+<script src="assets/lottie/fx-sparks.js"></script>
 <script src="assets/lottie/fx-step-icons.js"></script>
 <script src="assets/lottie/fx-brain-spark.js"></script>
 <script src="assets/lottie/fx-check.js"></script>
@@ -904,13 +906,13 @@ document.addEventListener('keydown',function(e){
   var nodes=[].slice.call(document.querySelectorAll('[data-lottie-key]'));
   nodes.forEach(function(el){
     var data=D[el.dataset.lottieKey]; if(!data) return;
-    var loop=el.dataset.lottieLoop==='1';
+    var loop=el.dataset.lottieLoop==='1', once=el.dataset.lottieOnce==='1';
     el._anim=L.loadAnimation({
       container:el, renderer:'svg', loop:loop, autoplay:false,
       animationData:data,
       rendererSettings:{preserveAspectRatio: el.dataset.lottieFit||'xMidYMid meet'}
     });
-    if(loop) el._anim.play();
+    if(loop||once) el._anim.play();   /* once: рисуется один раз при загрузке и держится на последнем кадре */
   });
   /* одноразовые (не loop, не manual) — играют при появлении экрана; галочки — по очереди (stagger) */
   var checks=[].slice.call(document.querySelectorAll('.lottie-check'));
@@ -921,7 +923,7 @@ document.addEventListener('keydown',function(e){
       var d= ci>=0 ? ci*110 : parseInt(el.dataset.lottieDelay||'0',10);
       if(d>0) setTimeout(function(){el._anim.goToAndPlay(0,true)},d); else el._anim.goToAndPlay(0,true);
     })},{threshold:.3});
-    nodes.forEach(function(el){ if(el._anim && el.dataset.lottieLoop!=='1' && el.dataset.lottieManual!=='1') io.observe(el); });
+    nodes.forEach(function(el){ if(el._anim && el.dataset.lottieLoop!=='1' && el.dataset.lottieManual!=='1' && el.dataset.lottieOnce!=='1') io.observe(el); });
   }
   /* вспышка вокруг мозга — вызывается вручную из reveal-клика (s4b) */
   window.__playSpark=function(){ var s=document.querySelector('.fx-brain-spark'); if(s&&s._anim) s._anim.goToAndPlay(0,true); };

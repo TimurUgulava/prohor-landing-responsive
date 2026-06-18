@@ -36,6 +36,9 @@ body{background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-
 .eyebrow::before{content:"";width:38px;height:2px;background:var(--orange)}
 
 h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.01em;color:var(--ink)}
+/* пульсация акцентных слов */
+@keyframes pulseWord{0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 rgba(254,153,1,0))}50%{transform:scale(1.05);filter:drop-shadow(0 0 22px rgba(254,153,1,.5))}}
+.pulse{display:inline-block;animation:pulseWord 1.7s ease-in-out infinite;transform-origin:center;will-change:transform}
 .uline{position:relative;white-space:nowrap}
 .uline svg{position:absolute;left:-4px;right:-10px;bottom:-14px;height:22px;width:calc(100% + 16px)}
 
@@ -467,7 +470,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 
   <div class="inner">
     <span class="eyebrow kicker">только практика · только хардкор</span>
-    <h1 class="big">Как легко и без заморочек собрать <span class="o">AI-сотрудника</span> в команду под любую задачу и&nbsp;процесс</h1>
+    <h1 class="big">Как легко и без заморочек собрать <span class="o pulse">AI-сотрудника</span> в команду под любую задачу и&nbsp;процесс</h1>
     <div class="slogan">
       <span class="no">NO SLIDES</span>
     </div>
@@ -540,11 +543,11 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <h1 class="big">Кампания под ключ<br><span class="o">5 этапов</span></h1>
     </div>
     <div class="carousel" id="carousel">
-      <div class="cstep"><div class="n">1</div><div class="step-icon" data-lottie-key="icon-analiz" data-lottie-loop="1" aria-hidden="true"></div><h3>Анализ объекта</h3><p>Паспорт объекта и реальные конкуренты</p><div class="out">→ кто продаётся рядом прямо сейчас</div></div>
-      <div class="cstep"><div class="n">2</div><div class="step-icon" data-lottie-key="icon-audience" data-lottie-loop="1" aria-hidden="true"></div><h3>Аудитория</h3><p>Сегменты ЦА, триггеры, барьеры</p><div class="out">→ темп продаж и приоритет сегментов</div></div>
-      <div class="cstep"><div class="n">3</div><div class="step-icon" data-lottie-key="icon-concept" data-lottie-loop="1" aria-hidden="true"></div><h3>Концепция</h3><p>Уникальный tone of voice и отстройка от конкурентов</p><div class="out">→ стержень и ключевые сообщения</div></div>
-      <div class="cstep"><div class="n">4</div><div class="step-icon" data-lottie-key="icon-text" data-lottie-loop="1" aria-hidden="true"></div><h3>Тексты</h3><p>Объявления + проверка модерации и 214-ФЗ</p><div class="out">→ готово к запуску, юрчек пройден</div></div>
-      <div class="cstep"><div class="n">5</div><div class="step-icon" data-lottie-key="icon-visual" data-lottie-loop="1" aria-hidden="true"></div><h3>Визуалы</h3><p>Генерация под форматы площадок</p><div class="out">→ баннеры 1:1, 4:5, 9:16, 16:9</div></div>
+      <div class="cstep"><div class="n">1</div><div class="step-icon" data-lottie-key="icon-analiz" data-lottie-manual="1" aria-hidden="true"></div><h3>Анализ объекта</h3><p>Паспорт объекта и реальные конкуренты</p><div class="out">→ кто продаётся рядом прямо сейчас</div></div>
+      <div class="cstep"><div class="n">2</div><div class="step-icon" data-lottie-key="icon-audience" data-lottie-manual="1" aria-hidden="true"></div><h3>Аудитория</h3><p>Сегменты ЦА, триггеры, барьеры</p><div class="out">→ темп продаж и приоритет сегментов</div></div>
+      <div class="cstep"><div class="n">3</div><div class="step-icon" data-lottie-key="icon-concept" data-lottie-manual="1" aria-hidden="true"></div><h3>Концепция</h3><p>Уникальный tone of voice и отстройка от конкурентов</p><div class="out">→ стержень и ключевые сообщения</div></div>
+      <div class="cstep"><div class="n">4</div><div class="step-icon" data-lottie-key="icon-text" data-lottie-manual="1" aria-hidden="true"></div><h3>Тексты</h3><p>Объявления + проверка модерации и 214-ФЗ</p><div class="out">→ готово к запуску, юрчек пройден</div></div>
+      <div class="cstep"><div class="n">5</div><div class="step-icon" data-lottie-key="icon-visual" data-lottie-manual="1" aria-hidden="true"></div><h3>Визуалы</h3><p>Генерация под форматы площадок</p><div class="out">→ баннеры 1:1, 4:5, 9:16, 16:9</div></div>
     </div>
     <div class="cnav">
       <button onclick="cmove(-1)" aria-label="предыдущий">◄</button>
@@ -562,14 +565,13 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
     <div class="grid">
       <div class="cva-text">
         <span class="eyebrow">Забудьте про нейро-чаты</span>
-        <h1 class="big">Чат или <span class="o">агент</span>?</h1>
+        <h1 class="big">Чат или <span class="o pulse">агент</span>?</h1>
         <p class="cva-line" id="cvaLine">Чат — это <b>супермозг</b><br>Гениальный, но <b>без рук</b></p>
         <div class="cva-verdict" id="cvaVerdict">Чат — отвечает<br>Агент — <span class="o">работает</span></div>
       </div>
       <div class="cva-fig" id="cvaFig">
         <img class="brain chat" src="assets/brain-chat-cut.png" alt="Супермозг">
         <img class="brain agent" src="assets/brain-agent-cut.png" alt="Супермозг с руками">
-        <div class="fx-brain-spark" data-lottie-key="brain-spark" data-lottie-manual="1" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -687,7 +689,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
       <div class="figwrap"><img class="figure" src="assets/prohor-happy-cut.png" alt="Прохор"></div>
       <div>
         <span class="eyebrow">Осталось только повторить!</span>
-        <h1 class="big" style="margin-top:22px">Создайте своего <span class="o">Прохора</span></h1>
+        <h1 class="big" style="margin-top:22px">Создайте своего <span class="o pulse">Прохора</span></h1>
         <div class="qrwrap">
           <div class="qr"><img src="assets/qr.png" alt="QR"></div>
           <div class="cta-sub">Забирайте <span class="o">Skill Architect</span><br>и делайте свою армию спецов</div>
@@ -798,6 +800,7 @@ function renderCar(){
     s.classList.toggle('active',off===0);
     if(cdotEls[i])cdotEls[i].classList.toggle('on',off===0);
   });
+  if(window.__onActiveStep) window.__onActiveStep(ci);
 }
 function cmove(d){ci=Math.max(0,Math.min(csteps.length-1,ci+d));renderCar()}
 document.addEventListener('keydown',function(e){
@@ -886,7 +889,6 @@ document.addEventListener('keydown',function(e){
     sec.classList.toggle('revealed',on);
     line.style.opacity='0';
     setTimeout(function(){ line.innerHTML=on?L_AGENT:L_CHAT; line.style.opacity='1'; },180);
-    if(on && window.__playSpark) window.__playSpark();
   });
 })();
 </script>
@@ -897,7 +899,6 @@ document.addEventListener('keydown',function(e){
 <script src="assets/lottie/fx-doodles.js?v=2"></script>
 <script src="assets/lottie/fx-sparks.js?v=2"></script>
 <script src="assets/lottie/fx-step-icons.js?v=2"></script>
-<script src="assets/lottie/fx-brain-spark.js?v=2"></script>
 <script src="assets/lottie/fx-check.js?v=2"></script>
 <script>
 (function(){
@@ -925,8 +926,19 @@ document.addEventListener('keydown',function(e){
     })},{threshold:.3});
     nodes.forEach(function(el){ if(el._anim && el.dataset.lottieLoop!=='1' && el.dataset.lottieManual!=='1' && el.dataset.lottieOnce!=='1') io.observe(el); });
   }
-  /* вспышка вокруг мозга — вызывается вручную из reveal-клика (s4b) */
-  window.__playSpark=function(){ var s=document.querySelector('.fx-brain-spark'); if(s&&s._anim) s._anim.goToAndPlay(0,true); };
+  /* иконки этапов s4: рисуются при активации карточки (и при появлении экрана) и застывают */
+  function playStepIcon(i){
+    if(typeof csteps==='undefined' || !csteps[i]) return;
+    var ic=csteps[i].querySelector('.step-icon');
+    if(ic && ic._anim) ic._anim.goToAndPlay(0,true);
+  }
+  window.__onActiveStep=function(i){ playStepIcon(i); };
+  var s4=document.getElementById('s4');
+  if(s4 && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting && typeof ci!=='undefined') playStepIcon(ci);
+    })},{threshold:.4}).observe(s4);
+  }
 })();
 /* count-up счётчиков на экране «Под капотом» (s6), без Lottie */
 (function(){

@@ -103,6 +103,8 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 .vsound svg{width:20px;height:20px}
 .vsound:hover{background:var(--orange);color:#0a0a0b;border-color:var(--orange)}
 .mobonly{display:none}  /* отдельный видео-экран — только мобайл */
+/* Lottie-слой поверх экрана (салют и пр.) */
+.fx-confetti{position:absolute;inset:0;z-index:5;pointer-events:none}
 #s3 h1{font-size:104px;margin:24px 0 0}
 #s3 .lead{margin-top:38px;font-size:25px;line-height:1.5;color:#cfcdc7;font-weight:500;max-width:680px}
 #s3 .lead+.lead{margin-top:22px}
@@ -670,6 +672,7 @@ h1.big{font-family:'Unbounded';font-weight:800;line-height:.98;letter-spacing:-.
 <!-- ===================== 10 · CTA ===================== -->
 <section class="screen" id="s8">
   <div class="glow" style="width:1000px;height:1000px;right:2%;top:50%;transform:translateY(-50%)"></div>
+  <div class="fx-confetti" data-lottie-key="confetti" aria-hidden="true"></div>
   <div class="inner">
     <div class="grid">
       <div class="figwrap"><img class="figure" src="assets/prohor-happy-cut.png" alt="Прохор"></div>
@@ -875,6 +878,35 @@ document.addEventListener('keydown',function(e){
     line.style.opacity='0';
     setTimeout(function(){ line.innerHTML=on?L_AGENT:L_CHAT; line.style.opacity='1'; },180);
   });
+})();
+</script>
+
+<!-- ===================== LOTTIE (меловые приколы) ===================== -->
+<script src="assets/lottie/lottie.min.js"></script>
+<script src="assets/lottie/fx-confetti.js"></script>
+<script>
+(function(){
+  var L=window.lottie, D=window.lottieData||{};
+  if(!L) return;
+  var nodes=[].slice.call(document.querySelectorAll('[data-lottie-key]'));
+  nodes.forEach(function(el){
+    var data=D[el.dataset.lottieKey]; if(!data) return;
+    var loop=el.dataset.lottieLoop==='1';
+    el._anim=L.loadAnimation({
+      container:el, renderer:'svg', loop:loop, autoplay:false,
+      animationData:data,
+      rendererSettings:{preserveAspectRatio: el.dataset.lottieFit||'xMidYMid meet'}
+    });
+    if(loop) el._anim.play();
+  });
+  /* одноразовые — проигрываются при каждом появлении своего экрана */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      var el=e.target;
+      if(e.isIntersecting && el._anim && el.dataset.lottieLoop!=='1') el._anim.goToAndPlay(0,true);
+    })},{threshold:.35});
+    nodes.forEach(function(el){ if(el._anim && el.dataset.lottieLoop!=='1') io.observe(el); });
+  }
 })();
 </script>
 </body>
